@@ -55,18 +55,13 @@ function checar(){
 }
 
 // limpar todas as tarefas "concluídas"
-function limpar(){  
-    let cont = 0;
-    let check = document.querySelectorAll('input:checked');
-    tarefas.forEach(tarefa =>{
-        check.forEach(element =>{
-            if(tarefa.id === element.id){
-                tarefas.splice(cont,1);
-                localStorage.setItem("tarefa", JSON.stringify (tarefas));
-            };
-        });
-        cont ++;
-    });
+function limpar(){    
+    for(let cont = tarefas.length-1; cont >= 0; cont--){
+        if (tarefas[cont].check === "checked"){
+            tarefas.splice(cont,1); 
+        }      
+    }
+    localStorage.setItem("tarefa", JSON.stringify (tarefas));
     atualizar();
 }
 
@@ -85,9 +80,7 @@ function gerarId(){
         time.getHours().toString() +
         time.getMinutes().toString() +
         time.getSeconds().toString() +
-        time.getMilliseconds().toString();
-    
+        time.getMilliseconds().toString();   
     return id;             
 }
-
 
