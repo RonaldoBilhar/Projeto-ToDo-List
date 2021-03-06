@@ -29,15 +29,19 @@ function atualizar(){
     if(tarefas){
         tarefas.forEach(tarefa => {
             list += `<div class="custom-control custom-checkbox"> 
-             <input type="checkbox" ${tarefa.check} class="custom-control-input" id="${tarefa.id}">
-
-            <label class="custom-control-label" for="${tarefa.id}"> - ${tarefa.descricao}</label> 
-            </div><hr>`          
+                <input type="checkbox" ${tarefa.check} class="custom-control-input" id="${tarefa.id}">`
+            if(tarefa.check === "checked"){
+                list += `<label style="text-decoration: line-through;" class="custom-control-label" for="${tarefa.id}"> - ${tarefa.descricao}</label> 
+                </div><hr>` 
+            } else{
+                list += `<label class="custom-control-label" for="${tarefa.id}"> - ${tarefa.descricao}</label> 
+                </div><hr>` 
+            }                  
         });  
     }     
         // exibe no html, cada formação de uma nova tarefa e limpa a caixa
     document.querySelector('#lista').innerHTML = list;
-    document.querySelector('#novaTarefa').value = "";     
+    document.querySelector('#novaTarefa').value = "";       
 }
 
 //a cada marcação ou desmarcação de algum checkbox, é verificado quais checkbox estão marcados e altera "tarefas" depois salva em localSorage
@@ -52,6 +56,7 @@ function checar(){
         }
     }
     localStorage.setItem("tarefa", JSON.stringify (tarefas));
+    atualizar();
 }
 
 // limpar todas as tarefas "concluídas"
